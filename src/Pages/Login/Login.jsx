@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 import img from '../../assets/images/login/login.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
 
     const {login} = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = (event) =>{
         event.preventDefault();
@@ -17,6 +20,7 @@ const Login = () => {
             const user = result.user;
             console.log(user);
             form.reset();
+            navigate(from, {replace:true});
         })
         .catch((error) => {
             console.error(error);
@@ -41,7 +45,7 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="text" name='password' placeholder="password" className="input input-bordered" />
+                        <input type="password" name='password' placeholder="password" className="input input-bordered" />
                         <label className="label">
                             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                         </label>
