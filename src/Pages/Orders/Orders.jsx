@@ -7,10 +7,14 @@ const Orders = () => {
     const [orders, setOrders] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`)
+            fetch(`http://localhost:5000/orders?email=${user?.email}`,{
+                headers:{
+                    authorization: `Bearer ${localStorage.getItem('genius-Token')}`,
+                }
+            })
             .then(res => res.json())
             .then(data => setOrders(data))
-    }, [user?.email])
+        }, [user?.email])
 
     const handleDelete = id =>{
         const proceed = confirm('are you sure you want ti cancel you order');
