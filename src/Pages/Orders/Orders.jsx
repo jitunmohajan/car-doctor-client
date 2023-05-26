@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import OrderRow from './OrderRow';
+import { useNavigate } from 'react-router-dom';
 
 const Orders = () => {
-    const { user } = useContext(AuthContext);
-    const [orders, setOrders] = useState([])
+    const { user, logOut } = useContext(AuthContext);
+    const [orders, setOrders] = useState([]);
+    // const navigate = useNavigate();
+    // const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
             fetch(`http://localhost:5000/orders?email=${user?.email}`,{
@@ -12,9 +15,17 @@ const Orders = () => {
                     authorization: `Bearer ${localStorage.getItem('genius-Token')}`,
                 }
             })
-            .then(res => res.json())
-            .then(data => setOrders(data))
-        }, [user?.email])
+            .then(res => {
+                if(res.status === 401 || res.status === 403){
+                    logOut();
+                    // navigate(from, {replace:true});
+                }
+                return res.json()
+            })
+            .then(data => {
+                setOrders(data)
+            })
+        }, [user?.email, logOut])
 
     const handleDelete = id =>{
         const proceed = confirm('are you sure you want ti cancel you order');
