@@ -10,7 +10,7 @@ const Orders = () => {
     // const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
-            fetch(`http://localhost:5000/orders?email=${user?.email}`,{
+            fetch(`https://genius-car-server-jitunmohajan.vercel.app/orders?email=${user?.email}`,{
                 headers:{
                     authorization: `Bearer ${localStorage.getItem('genius-Token')}`,
                 }
@@ -30,7 +30,7 @@ const Orders = () => {
     const handleDelete = id =>{
         const proceed = confirm('are you sure you want ti cancel you order');
         if(proceed){
-            fetch(`http://localhost:5000/orders/${id}`,{
+            fetch(`https://genius-car-server-jitunmohajan.vercel.app/orders/${id}`,{
                 method: 'DELETE'
             })
             .then(res=>res.json())
@@ -47,7 +47,7 @@ const Orders = () => {
 
     const handleStatusUpdate = id =>{
         console.log(id)
-        fetch(`http://localhost:5000/orders/${id}`,{
+        fetch(`https://genius-car-server-jitunmohajan.vercel.app/orders/${id}`,{
             method: 'PATCH',
             headers:{
                 'content-type': 'application/json'
@@ -71,8 +71,8 @@ const Orders = () => {
    
 
     return (
-        <div>
-            <h2 className="text-5xl">You have {orders.length} Orders</h2>
+        <div className='max-w-screen-xl mx-auto pt-8 pb-20'>
+            <h2 className="text-5xl">Your Orders: {orders.length}</h2>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>

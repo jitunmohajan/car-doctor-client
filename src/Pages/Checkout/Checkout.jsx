@@ -29,7 +29,7 @@ const Checkout = () => {
 
         
 
-        fetch('http://localhost:5000/orders', {
+        fetch('https://genius-car-server-jitunmohajan.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -48,7 +48,7 @@ const Checkout = () => {
     }
 
     return (
-        <div>
+        <div className='max-w-screen-xl mx-auto pt-8 pb-8'>
             <form onSubmit={handlePlaceOrder}>
                 <h2 className='text-2xl'>You are about to order: {title}</h2>
                 <h4>Price:{price}</h4>
@@ -58,7 +58,7 @@ const Checkout = () => {
                     <input name='phone' type="text" placeholder="Your Phone" className="input input-ghost w-full input-bordered" required/>
                     <input name='email' type="text" placeholder="Your Email" defaultValue={user?.email} className="input input-ghost w-full input-bordered" readOnly/>
                 </div>
-                <textarea name='message' className="textarea textarea-bordered h-24  w-full" placeholder="You Message"></textarea>
+                <textarea name='message' className="textarea textarea-bordered h-24  w-full pt-8" placeholder="You Message"></textarea>
                 <input className='btn' type="submit" value="Place Your Order" />
             </form>
         </div>
